@@ -34,6 +34,8 @@ $logged_in =
           <li><a href="./index.php?p=about">About</a></li>
           <li><a href="./index.php?p=contact">Contact</a></li>
           <?php
+            /*
+            // Disable login/registration until we support user comments
             if ($logged_in) {
               print '<li><a href="./logout.php">Logout</a></li>';
               print '<li><a href="#">My Account</a></li>';
@@ -41,7 +43,9 @@ $logged_in =
               print '<li><a href="./index.php?p=register">Register</a></li>';
               print '<li><a href="./index.php?p=login">Login</a></li>';
             }
+            */
           ?>
+
         </ul>
       </div>
     </div>

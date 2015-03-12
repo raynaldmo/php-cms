@@ -16,8 +16,10 @@ if (isset($_GET['p'])) {
 } elseif (isset($_POST['p'])) { // Forms
     $p = $_POST['p'];
 } else {
-    $p = NULL;
+    $p = 'main';
 }
+
+trigger_error('index', E_USER_NOTICE);
 
 // Determine what page to display:
 switch ($p) {
@@ -42,8 +44,8 @@ switch ($p) {
       break;
 
     case 'register':
-      $page = 'register.php';
-      $page_title = 'Register';
+      $page = 'main.php';
+      $page_title = 'Welcome';
       break;
 
     case 'search':
