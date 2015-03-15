@@ -70,8 +70,8 @@ if (in_array($host, array('local', '127.0', '192.1'))) {
 
     $path = get_include_path() . PATH_SEPARATOR . $ext_path .
       PATH_SEPARATOR . $ext_path . '/admin' .
-      PATH_SEPARATOR . $root . '/lib' .
-      PATH_SEPARATOR . $root . '/classes';
+      PATH_SEPARATOR . $ext_path . '/lib' .
+      PATH_SEPARATOR . $ext_path . '/classes';
 
     set_include_path($path);
 }

@@ -19,7 +19,7 @@ if (isset($_GET['p'])) {
     $p = 'main';
 }
 
-trigger_error('index', E_USER_NOTICE);
+// trigger_error('index', E_USER_NOTICE);
 
 // Determine what page to display:
 switch ($p) {

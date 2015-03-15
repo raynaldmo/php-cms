@@ -52,7 +52,7 @@ echo <<<DE
               <a href = "#" id="post-delete" data-pid="$post->post_id"
                 data-ptitle="$post->post_title">Delete</a>
             </span>
-          </h2>;
+          </h2>
 DE;
 
     } else {
