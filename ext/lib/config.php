@@ -61,13 +61,17 @@ if (in_array($host, array('local', '127.0', '192.1'))) {
   set_include_path($path);
 
 } else {
-    // settings for deployment server
+    // settings for Heroku deployment server
     $local = false;
-    $admin_path = $root . '/ext/admin';
 
-    $path = get_include_path() . PATH_SEPARATOR . $admin_path .
-      PATH_SEPARATOR . $root . '/ext' .
-      PATH_SEPARATOR . $root . '/ext/lib';
+    // $root is /app/public
+    // $ext_path is /app/ext
+    $ext_path = dirname($root) . '/ext';
+
+    $path = get_include_path() . PATH_SEPARATOR . $ext_path .
+      PATH_SEPARATOR . $ext_path . '/admin' .
+      PATH_SEPARATOR . $root . '/lib' .
+      PATH_SEPARATOR . $root . '/classes';
 
     set_include_path($path);
 }
@@ -83,7 +87,7 @@ if ($local) {
 } else {
     $debug = false;
     define('BASE_URI', $root);
-    define('BASE_URL', '');
+    define('BASE_URL', 'http://php5-cms.herokuapp.com/');
     define('DB', $root . '/ext/admin/db.php');
 }
 
