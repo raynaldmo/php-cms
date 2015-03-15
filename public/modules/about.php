@@ -19,4 +19,4 @@ if (!defined('BASE_URL')) {
 } // End of defined() IF.
 ?>
 <h2>About this Site</h2>
-<p>Ramblings about World History</p>
+<p>Basic CMS built with PHP 5</p>

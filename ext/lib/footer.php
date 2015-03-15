@@ -3,8 +3,9 @@
     </div>
     <div id="content_footer"></div>
     <div id="footer">
-      Copyright &copy; myHistoryNotes.net |
-      <a href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a>
+      Copyright &copy; php-cms |
+      <a href="http://www.html5webtemplates.co.uk">CSS design from
+        HTML5webtemplates.co.uk</a>
     </div>
   </div>
   <?php

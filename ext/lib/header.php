@@ -23,9 +23,9 @@ $logged_in =
     <div id="header">
       <div id="logo">
         <div id="logo_text">
-          <h1><a href="./index.php"><em>MyHistory<span
-                class="logo_colour">Notes</span></em></a></h1>
-          <h2>Ramblings About World History</h2>
+          <h1><a href="./index.php"><em>php-<span
+                class="logo_colour">CMS</span></em></a></h1>
+          <h2>Basic CMS built with PHP</h2>
         </div>
       </div>
       <div id="menubar">
