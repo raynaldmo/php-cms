@@ -88,7 +88,7 @@ if ($local) {
     $debug = false;
     define('BASE_URI', $root);
     define('BASE_URL', 'http://php5-cms.herokuapp.com/');
-    define('DB', $root . '/ext/admin/db.php');
+    define('DB', $ext_path . '/admin/db.php');
 }
 
 //------------------------------------------------------------------------
