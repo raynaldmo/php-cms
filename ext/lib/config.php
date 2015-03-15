@@ -20,28 +20,39 @@ define ('DBLOG', '/db_log.txt');
 define('GS', ':');
 define('RS', "\n");
 
-// write the provided message to the log file
+// record DB accesses
 function write_db_log($message) {
-  global $admin_path;
+  global $admin_path, $debug;
 
   $username = '';
   if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
   }
+  $str = date('Ymd\THis') . GS. $username .
+    GS . substr($message,0,256) . RS;
 
+  if ($debug) {
+    file_put_contents( $admin_path . DBLOG, $str, FILE_APPEND);
+  } else {
+    file_put_contents('php://stdout', $str);
+  }
+
+  /*
   $fp = fopen($admin_path . DBLOG, 'a');
   fwrite($fp, date('Ymd\THis') . GS. $username . GS .
     substr($message,0,256) . RS);
   fclose($fp);
+  */
+
 }
 
 //----------------------- End Database Query Logging ---------------------
 
 if (in_array($host, array('local', '127.0', '192.1'))) {
     // settings for development server
-    $local = TRUE;
+    $local = true;
     $local_root = $root . '/php-cms'; // /var/www/php-cms
-    $admin_path = $root . '/php-cms-admin'; // i.e /var/www/php-cms-admin
+    $admin_path = $local_root . '/ext/admin'; // i.e /var/www/php-cms/ext/admin
 
   $path = get_include_path() . PATH_SEPARATOR . $admin_path .
       PATH_SEPARATOR . $local_root . '/ext' .
@@ -51,13 +62,12 @@ if (in_array($host, array('local', '127.0', '192.1'))) {
 
 } else {
     // settings for deployment server
-    $local = FALSE;
-    // one level above document root
-    $admin_path = dirname($root) . '/php-cms-admin';
+    $local = false;
+    $admin_path = $root . '/ext/admin';
 
     $path = get_include_path() . PATH_SEPARATOR . $admin_path .
       PATH_SEPARATOR . $root . '/ext' .
-      PATH_SEPARATOR . $local_root . '/public';
+      PATH_SEPARATOR . $root . '/public';
 
     set_include_path($path);
 }
@@ -65,42 +75,19 @@ if (in_array($host, array('local', '127.0', '192.1'))) {
 // Determine location of files and the URL of the site:
 // Allow for development on different servers.
 if ($local) {
-    $debug = TRUE;
-    define('BASE_URI', '/var/www/php-cms');
+    $debug = true;
+    define('BASE_URI', $local_root);  // var/www/php-cms
     define('BASE_URL', 'http://192.168.0.252/php-cms/public/');
-    define('DB', '/var/www/php-cms-admin/db.php');
+    define('DB', $local_root . '/ext/admin/db.php');
 
 } else {
-    define('BASE_URI', '/path/to/live/html/folder/');
-    define('BASE_URL', 'http://www.example.com/');
-    define('DB', '/path/to/live/db.php');
+    $debug = false;
+    define('BASE_URI', $root);
+    define('BASE_URL', '');
+    define('DB', $root . '/ext/admin/db.php');
 }
-
-
 
 //------------------------------------------------------------------------
-
-/* 
- *  Most important setting!
- *  The $debug variable is used to set error management.
- *  To debug a specific page, add this to the index.php page:
-
-if ($p == 'thismodule') $debug = TRUE;
-require('./includes/config.inc.php');
-
- *  To debug the entire site, do
-
-$debug = TRUE;
-
- *  before this next conditional.
- */
-
-// Assume debugging is off. 
-if (!isset($debug)) {
-    $debug = FALSE;
-}
-
-$debug = false;
 
 require 'lib/error.php';
 

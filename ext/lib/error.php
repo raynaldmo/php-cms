@@ -30,21 +30,20 @@ function error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
   $message = date( "Y-m-d H:i:s - ");
   $message .= $levels[$errno] . ' ('. $errno . ')'. " : $errstr in $errfile,
   line $errline\n";
-  $message .= 'Log to file ' . $admin_path . APPLOG . "\n\n";
+
+  // $message .= 'Log to file ' . $admin_path . APPLOG . "\n\n";
+
   $message .= "Variables:\n";
   $message .= print_r( $errcontext, true ) . "\n\n";
 
   if ($debug) {
-    echo '<pre>' . $message . "\n";
-    debug_print_backtrace();
-    echo '</pre><br />';
-
     // error_log( $message, 0);
-    error_log( $message, 3,  $admin_path . APPLOG);
-
+    // error_log( $message, 3,  $admin_path . APPLOG);
+    file_put_contents( $admin_path . APPLOG, $message, FILE_APPEND);
   } else {
     // error_log ($message, 1, $contact_email); // Send email.
-    error_log( $message, 3,  $admin_path . APPLOG);
+    // error_log( $message, 3,  $admin_path . APPLOG);
+    file_put_contents( 'php://stderr', $message);
 
     $ok = array(E_NOTICE, E_USER_NOTICE, E_WARNING, E_USER_WARNING);
     if (! in_array($errno, $ok)) {
@@ -61,9 +60,8 @@ error_reporting(E_ALL);
 // Always log errors
 ini_set('log_errors', '1');
 
-// for development, $debug will be true and error messages will show up
-// in browser. for deployment no error messages are sent to browser
-$debug ? ini_set('display_errors', '1') :  ini_set('display_errors', '0');
+// don't show errors in browser
+ini_set('display_errors', '0');
 
 // Use my error handler:
 set_error_handler('error_handler');

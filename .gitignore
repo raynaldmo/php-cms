@@ -1,6 +1,8 @@
 ~
 .idea/workspace.xml
 development/
+ext/admin/app_log.txt
+ext/admin/db_log.txt
 ext/tests
 ext/views
 public/modules/account.php
